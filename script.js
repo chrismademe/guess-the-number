@@ -2,19 +2,22 @@
 class GuessTheNumber extends HTMLElement {
 
     connectedCallback() {
+        this.bestScore = localStorage.getItem('bestScore') || 'N/A';
         this.form = this.querySelector('form');
         this.hint = this.querySelector('[data-hint]');
+        this.resetBtn = this.querySelector('[data-reset]');
         this.initNumbers();
         this.initNumberSlots();
         this.initText();
         this.form.addEventListener('submit', this.handleGuessSubmit.bind(this));
         this.guesses = [];
+        this.displayBestScore();
+        this.resetBtn.addEventListener('click', this.resetGame.bind(this));
     }
 
     initNumbers() {
         // Generate 4 random numbers to start the game
         this.numbers = Array.from({ length: 4 }, () => Math.floor(Math.random() * 10));
-        console.log(`Numbers: ${this.numbers.join('')}`);
     }
 
     initText() {
@@ -34,7 +37,6 @@ class GuessTheNumber extends HTMLElement {
     handleGuessSubmit(event) {
         event.preventDefault();
         const guess = this.form.querySelector('input').value;
-        console.log(`Guess: ${guess}`);
         this.checkGuess(guess);
         this.form.querySelector('input').value = '';
     }
@@ -49,8 +51,6 @@ class GuessTheNumber extends HTMLElement {
                 correct++;
             }
         });
-
-        console.log(`Correct: ${correct}`);
 
         this.guesses.push({
             guess,
@@ -75,16 +75,14 @@ class GuessTheNumber extends HTMLElement {
             text = this.text.win;
             text += ` You took ${this.guesses.length} guesses.`;
             this.showNumbers();
+            this.saveBestScore(this.guesses.length);
         }
 
         this.hint.textContent = text;
     }
 
     resetGame() {
-        this.initNumbers();
-        this.initNumberSlots();
-        this.guesses = [];
-        this.hint.textContent = '';
+        window.location.reload();
     }
 
     updateGuessList() {
@@ -107,6 +105,18 @@ class GuessTheNumber extends HTMLElement {
         this.numberSlots.forEach((slot, index) => {
             slot.textContent = this.numbers[index];
         });
+    }
+
+    saveBestScore(score) {
+        if (score < this.bestScore || this.bestScore === 'N/A') {
+            this.bestScore = score;
+            localStorage.setItem('bestScore', score);
+        }
+    }
+
+    displayBestScore() {
+        let bestScore = this.querySelector('[data-best-score]');
+        bestScore.textContent = this.bestScore;
     }
 
 }
