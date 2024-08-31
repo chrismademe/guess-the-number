@@ -1,0 +1,18 @@
+{
+  "name": "guess-the-number",
+  "version": "1.0.0",
+  "main": "script.js",
+  "scripts": {
+    "dev": "run-p serve watch",
+    "build": "npx tailwindcss -i ./style.css -o ./dist/style.css",
+    "serve": "npx serve .",
+    "watch": "npx tailwindcss -i ./style.css -o ./dist/style.css --watch"
+  },
+  "author": "Chris Galbraith",
+  "license": "MIT",
+  "description": "",
+  "dependencies": {
+    "npm-run-all": "^4.1.5",
+    "tailwindcss": "^3.4.10"
+  }
+}
