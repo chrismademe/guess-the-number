@@ -90,6 +90,9 @@ class GuessTheNumber extends HTMLElement {
     updateGuessList() {
         let list = this.querySelector('[data-guesses]');
 
+        // Reverse the order
+        this.guesses = this.guesses.reverse();
+
         if (this.guesses.length > 0) {
             list.innerHTML = '';
             this.guesses.forEach(guess => {
