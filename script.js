@@ -36,6 +36,7 @@ class GuessTheNumber extends HTMLElement {
         const guess = this.form.querySelector('input').value;
         console.log(`Guess: ${guess}`);
         this.checkGuess(guess);
+        this.form.querySelector('input').value = '';
     }
 
     checkGuess(guess) {
