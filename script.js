@@ -57,7 +57,10 @@ class GuessTheNumber extends HTMLElement {
             correct
         });
 
-        this.updateGuessList();
+        this.updateGuessList({
+            guess,
+            correct
+        });
 
         this.updateText(correct);
     }
@@ -76,6 +79,7 @@ class GuessTheNumber extends HTMLElement {
             text += ` You took ${this.guesses.length} guesses.`;
             this.showNumbers();
             this.saveBestScore(this.guesses.length);
+            this.doConfetti();
         }
 
         this.hint.textContent = text;
@@ -85,20 +89,12 @@ class GuessTheNumber extends HTMLElement {
         window.location.reload();
     }
 
-    updateGuessList() {
+    updateGuessList(guess) {
         let list = this.querySelector('[data-guesses]');
 
-        // Reverse the order
-        this.guesses = this.guesses.reverse();
-
-        if (this.guesses.length > 0) {
-            list.innerHTML = '';
-            this.guesses.forEach(guess => {
-                let item = document.createElement('li');
-                item.textContent = `${guess.guess} (${guess.correct})`;
-                list.appendChild(item);
-            });
-        }
+        let item = document.createElement('li');
+        item.textContent = `${guess.guess} (${guess.correct})`;
+        list.insertBefore(item, list.firstChild);
     }
 
     showNumbers() {
@@ -117,6 +113,10 @@ class GuessTheNumber extends HTMLElement {
     displayBestScore() {
         let bestScore = this.querySelector('[data-best-score]');
         bestScore.textContent = this.bestScore;
+    }
+
+    doConfetti() {
+        confetti();
     }
 
 }

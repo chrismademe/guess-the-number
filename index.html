@@ -6,10 +6,13 @@
         <title>Guess The Number</title>
         <link rel="stylesheet" type="text/css" href="/dist/style.css">
         <script src="script.js" defer></script>
+        <script src="confetti.min.js" defer></script>
     </head>
-    <body>
-        <guess-the-number class="block space-y-8 px-20">
-            <div data-numbers class="flex justify-center items-end gap-4">
+    <body class="bg-gray-950 text-gray-100">
+        <guess-the-number class="block space-y-8 px-20 py-12">
+            <div data-confetti></div>
+            <h1 class="font-bold text-center text-lg leading-none tracking-tight">Crack the Code</h1>
+            <div data-numbers class="flex justify-center items-end gap-4 font-mono">
                 <span class="flex justify-center items-center border-teal-900 border-b w-10 h-16 text-center text-xl">?</span>
                 <span class="flex justify-center items-center border-teal-900 border-b w-10 h-16 text-center text-xl">?</span>
                 <span class="flex justify-center items-center border-teal-900 border-b w-10 h-16 text-center text-xl">?</span>
@@ -18,14 +21,15 @@
             <div data-hint class="text-center">Guess all 4 numbers in the correct place</div>
             <div class="items-start gap-6 grid md:grid-cols-3 mx-auto max-w-xl">
                 <form action="#" method="post" data-input class="flex flex-wrap justify-center items-center gap-2 col-span-2">
-                    <input class="border-gray-300 px-4 py-2 border rounded leading-none" inputmode="numeric" pattern="[0-9]*" name="guess" minlength="4" maxlength="4">
+                    <input class="border-gray-900 bg-gray-800 px-4 py-2 border rounded leading-none" inputmode="numeric" pattern="[0-9]*" name="guess" minlength="4" maxlength="4">
                     <button class="bg-teal-500 hover:bg-teal-400 px-4 py-2 border border-teal-600 rounded focus:ring-1 focus:ring-teal-300 font-bold leading-none" type="submit">Guess</button>
 
                     <p>Best Score: <span data-best-score></span></p>
                 </form>
-                <ul data-guesses role="list" class="text-center">
-                    <li>Your guesses</li>
-                </ul>
+                <div>
+                    <h2 class="font-bold leading-none tracking-tight">Your guesses</h2>
+                    <ul data-guesses role="list" class="tabular-nums"></ul>
+                </div>
             </div>
             <div class="flex justify-center">
                 <button class="bg-rose-500 hover:bg-rose-400 px-4 py-2 border border-rose-600 rounded focus:ring-1 focus:ring-rose-300 font-bold leading-none" type="button" data-reset>Reset Game</button>
